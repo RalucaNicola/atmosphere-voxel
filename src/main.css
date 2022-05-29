@@ -1,0 +1,37 @@
+@import 'https://js.arcgis.com/4.23/@arcgis/core/assets/esri/themes/dark/main.css';
+
+html,
+body,
+#root {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  width: 100%;
+  font-family: var(--calcite-sans-family);
+  color: white;
+  background-color: #353535;
+}
+
+.calcite-theme-dark,
+:root {
+  --calcite-ui-brand: rgb(0, 194, 194);
+  --calcite-ui-brand-hover: #04532c;
+  --border-radius: 10px;
+  --box-shadow: 0 1px 4px rgb(0 0 0 / 80%);
+  --padding: 25px;
+  --border-corners: 1px solid rgba(0 255 255 / 0.8);
+  --mobile-font-size: 12px;
+  --font-size: 14px;
+}
+
+.esri-widget {
+  background: none !important;
+}
+
+.esri-widget__heading.esri-legend__service-label {
+  display: none !important;
+}
+
+.esri-legend__service {
+  padding: 20px 0 0 0;
+}

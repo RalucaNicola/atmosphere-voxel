@@ -1,0 +1,48 @@
+.background {
+  background-color: rgba(0 0 0 / 0.3);
+  pointer-events: all;
+  padding: 10px 40px;
+  margin: 20px;
+  position: relative;
+  box-shadow: inset 0 0 10px rgb(0 255 255 / 40%);
+  font-size: var(--calcite-font-size--1);
+}
+
+.border {
+  content: '';
+  position: absolute;
+  height: 10px;
+  width: 10px;
+}
+
+.borderLeftTop {
+  composes: border;
+  top: 0;
+  left: 0;
+  border-left: var(--border-corners);
+  border-top: var(--border-corners);
+}
+
+.borderRightTop {
+  composes: border;
+  top: 0;
+  right: 0;
+  border-right: var(--border-corners);
+  border-top: var(--border-corners);
+}
+
+.borderRightBottom {
+  composes: border;
+  bottom: 0;
+  right: 0;
+  border-right: var(--border-corners);
+  border-bottom: var(--border-corners);
+}
+
+.borderLeftBottom {
+  composes: border;
+  bottom: 0;
+  left: 0;
+  border-left: var(--border-corners);
+  border-bottom: var(--border-corners);
+}

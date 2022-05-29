@@ -1,0 +1,16 @@
+.appLayout {
+  position: absolute;
+  top: 20px;
+  left: 0;
+  right: 0;
+  pointer-events: none;
+}
+
+.appTitle {
+  margin-left: 20%;
+  margin-right: 20%;
+}
+
+.leftPanels {
+  width: max(30vw, 300px);
+}
