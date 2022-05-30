@@ -17,16 +17,14 @@ export const App = () => {
         <header className={styles.appTitle}>
           <Title text='Atmospheric measurements using radio occultation' size='large'></Title>
         </header>
-        <div className={styles.leftPanels}>
-          <MeasurementsPanel
-            selectedVariable={selectedVariable}
-            setSelectedVariable={setSelectedVariable}
-            selectedVisualization={selectedVisualization}
-            setSelectedVisualization={setSelectedVisualization}
-            setLegendContainer={setLegendContainer}
-          ></MeasurementsPanel>
-          <TimePanel selectedTime={selectedTime} setSelectedTime={setSelectedTime}></TimePanel>
-        </div>
+        <MeasurementsPanel
+          selectedVariable={selectedVariable}
+          setSelectedVariable={setSelectedVariable}
+          selectedVisualization={selectedVisualization}
+          setSelectedVisualization={setSelectedVisualization}
+          setLegendContainer={setLegendContainer}
+        ></MeasurementsPanel>
+        <TimePanel selectedTime={selectedTime} setSelectedTime={setSelectedTime}></TimePanel>
       </div>
     </>
   );

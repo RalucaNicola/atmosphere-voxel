@@ -11,7 +11,7 @@ const Map = ({ children }) => {
   // initialize effect
   useEffect(() => {
     let view = null;
-    try {
+    if (mapDivRef.current) {
       view = new SceneView({
         container: mapDivRef.current,
         map: new WebScene({
@@ -21,15 +21,12 @@ const Map = ({ children }) => {
         }),
         ui: { components: [] }
       });
-
       view
         .when(() => {
           setMapView(view);
           window.view = view;
         })
         .catch(console.error);
-    } catch (err) {
-      console.error(err);
     }
     return () => {
       if (view) {
@@ -37,7 +34,7 @@ const Map = ({ children }) => {
         view = null;
       }
     };
-  }, [mapDivRef.current]);
+  }, [mapDivRef]);
 
   return (
     <>

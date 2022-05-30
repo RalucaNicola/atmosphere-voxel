@@ -1,16 +1,17 @@
 .appLayout {
   position: absolute;
-  top: 20px;
+  top: 0;
   left: 0;
   right: 0;
   pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  height: 100%;
 }
 
 .appTitle {
   margin-left: 20%;
   margin-right: 20%;
-}
-
-.leftPanels {
-  width: max(30vw, 300px);
+  flex: 0 0 auto;
 }

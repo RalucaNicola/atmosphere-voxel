@@ -1,4 +1,4 @@
-import { Title, Background } from '../index';
+import { Background } from '../index';
 import '@esri/calcite-components/dist/components/calcite-label';
 import '@esri/calcite-components/dist/components/calcite-radio-button-group';
 import '@esri/calcite-components/dist/components/calcite-radio-button';
@@ -7,8 +7,7 @@ import { CalciteLabel, CalciteRadioButtonGroup, CalciteRadioButton } from '@esri
 import * as styles from './TimePanel.module.css';
 const TimePanel = ({ selectedTime }) => {
   return (
-    <Background>
-      <Title text='Time' size='small'></Title>
+    <Background title='Time' size='small'>
       <CalciteRadioButtonGroup
         name='time-group'
         layout='horizontal'
