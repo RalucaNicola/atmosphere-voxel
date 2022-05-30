@@ -3,9 +3,9 @@ import '@esri/calcite-components/dist/components/calcite-label';
 import '@esri/calcite-components/dist/components/calcite-radio-button-group';
 import '@esri/calcite-components/dist/components/calcite-radio-button';
 import { CalciteLabel, CalciteRadioButtonGroup, CalciteRadioButton } from '@esri/calcite-components-react';
-
+import { timeDates } from '../../config';
 import * as styles from './TimePanel.module.css';
-const TimePanel = ({ selectedTime }) => {
+const TimePanel = ({ selectedTime, setSelectedTime }) => {
   return (
     <Background title='Time' size='small'>
       <CalciteRadioButtonGroup
@@ -13,17 +13,21 @@ const TimePanel = ({ selectedTime }) => {
         layout='horizontal'
         scale='s'
         onCalciteRadioButtonChange={(event) => {
+          console.log(event.target.value);
           setSelectedTime(event.target.value);
         }}
       >
-        <CalciteLabel layout='inline' className={styles.label}>
-          <CalciteRadioButton value={1} {...(selectedTime === 1 ? { checked: true } : undefined)}></CalciteRadioButton>
-          June 1, 2019
-        </CalciteLabel>
-        <CalciteLabel layout='inline' className={styles.label}>
-          <CalciteRadioButton value={2} {...(selectedTime === 2 ? { checked: true } : undefined)}></CalciteRadioButton>
-          July 31, 2019
-        </CalciteLabel>
+        {timeDates.map((time, index) => {
+          return (
+            <CalciteLabel layout='inline' key={index} className={styles.label}>
+              <CalciteRadioButton
+                value={time}
+                {...(selectedTime === time ? { checked: true } : undefined)}
+              ></CalciteRadioButton>
+              {time}
+            </CalciteLabel>
+          );
+        })}
       </CalciteRadioButtonGroup>
     </Background>
   );

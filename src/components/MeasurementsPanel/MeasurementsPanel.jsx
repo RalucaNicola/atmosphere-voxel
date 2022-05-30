@@ -55,10 +55,10 @@ const MeasurementsPanel = ({
             className={styles.centerRadioButtons}
           >
             {selectedVariable.visualization.map((visualization, index) => {
-              const checked = selectedVisualization.name === visualization.name ? { checked: true } : undefined;
+              const checked = selectedVisualization === visualization.value ? { checked: true } : undefined;
               return (
                 <CalciteLabel key={index} layout='inline' className={styles.label}>
-                  <CalciteRadioButton value={visualization.name} {...checked} scale='s'></CalciteRadioButton>
+                  <CalciteRadioButton value={visualization.value} {...checked} scale='s'></CalciteRadioButton>
                   {visualization.name}
                 </CalciteLabel>
               );

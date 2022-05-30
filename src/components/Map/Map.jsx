@@ -2,9 +2,10 @@ import * as styles from './Map.module.css';
 import { useRef, useEffect, useState, Children, cloneElement } from 'react';
 import SceneView from '@arcgis/core/views/SceneView';
 import WebScene from '@arcgis/core/WebScene';
+import TimeExtent from '@arcgis/core/TimeExtent';
 import { mapConfig } from '../../config';
 
-const Map = ({ children }) => {
+const Map = ({ selectedTime, children }) => {
   const mapDivRef = useRef();
   const [mapView, setMapView] = useState(null);
 
@@ -19,7 +20,8 @@ const Map = ({ children }) => {
             id: mapConfig['web-scene-id']
           }
         }),
-        ui: { components: [] }
+        ui: { components: [] },
+        qualityProfile: 'high'
       });
       view
         .when(() => {
@@ -35,6 +37,20 @@ const Map = ({ children }) => {
       }
     };
   }, [mapDivRef]);
+
+  useEffect(() => {
+    if (mapView && selectedTime) {
+      const startDate = new Date(selectedTime);
+      startDate.setDate(startDate.getDate() - 4);
+      const endDate = new Date(selectedTime);
+      endDate.setDate(endDate.getDate() + 4);
+      const timeExtent = new TimeExtent({
+        start: startDate,
+        end: endDate
+      });
+      mapView.timeExtent = timeExtent;
+    }
+  }, [mapView, selectedTime]);
 
   return (
     <>
