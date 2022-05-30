@@ -5,4 +5,5 @@ export { default as MeasurementsPanel } from './MeasurementsPanel/MeasurementsPa
 export { default as VisualizationPanel } from './VisualizationPanel/VisualizationPanel';
 export { default as TimePanel } from './TimePanel/TimePanel';
 export { default as Legend } from './Legend/Legend';
+export { default as Scale } from './Scale/Scale';
 export { default as VoxelLayer } from './VoxelLayer/VoxelLayer';

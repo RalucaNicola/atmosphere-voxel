@@ -6,7 +6,7 @@ h1 {
 h2 {
   font-size: var(--calcite-font-size--1);
   padding: 5px 0;
-  margin: 10px 0 25px 0;
+  margin: 0 0 5px 0;
 }
 
 .titleBackground {

@@ -31,3 +31,13 @@
   flex-direction: column;
   overflow-y: auto;
 }
+
+@media (max-width: 700px) {
+  .rightPane,
+  .leftPane > :last-child {
+    display: none;
+  }
+  .leftPane {
+    justify-content: end;
+  }
+}

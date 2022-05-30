@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Map, Title, MeasurementsPanel, VisualizationPanel, Legend, TimePanel, VoxelLayer } from '../components';
+import { Map, Title, MeasurementsPanel, VisualizationPanel, Legend, TimePanel, VoxelLayer, Scale } from '../components';
 import { variables, timeDates } from '../config';
 import * as styles from './App.module.css';
 
@@ -9,7 +9,6 @@ export const App = () => {
   const [selectedTime, setSelectedTime] = useState(timeDates[0]);
   const [exaggeration, setExaggeration] = useState(200);
   const [legendContainer, setLegendContainer] = useState(null);
-
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -19,6 +18,7 @@ export const App = () => {
           selectedVisualization={selectedVisualization}
           exaggeration={exaggeration}
         ></VoxelLayer>
+        <Scale exaggeration={exaggeration}></Scale>
       </Map>
       <div className={styles.appLayout}>
         <header className={styles.appTitle}>
