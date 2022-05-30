@@ -2,21 +2,8 @@
   cursor: pointer;
 }
 
-.sectionSeparator:before {
-  content: '';
-  width: 80%;
-  margin: 0 auto;
-  border-top: 1px solid rgba(255 255 255 / 0.5);
-  display: block;
-  padding-bottom: 10px;
-}
-
-.sectionSeparator {
-  padding: 10px 0;
-}
-
 .variableInfo {
-  padding: 10px 0;
+  padding: 20px 0;
 }
 
 .centerRadioButtons {

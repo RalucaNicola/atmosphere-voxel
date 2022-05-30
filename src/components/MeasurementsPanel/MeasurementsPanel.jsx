@@ -7,13 +7,7 @@ import { CalciteLabel, CalciteRadioButtonGroup, CalciteRadioButton } from '@esri
 import { variables } from '../../config';
 import { useEffect, useRef } from 'react';
 
-const MeasurementsPanel = ({
-  selectedVariable,
-  setSelectedVariable,
-  selectedVisualization,
-  setSelectedVisualization,
-  setLegendContainer
-}) => {
+const MeasurementsPanel = ({ selectedVariable, setSelectedVariable, setLegendContainer }) => {
   const legendContainerRef = useRef();
   useEffect(() => {
     setLegendContainer(legendContainerRef.current);
@@ -41,32 +35,7 @@ const MeasurementsPanel = ({
       </CalciteRadioButtonGroup>
       <div className={styles.variableInfo}>
         <div className={styles.description}>{selectedVariable.description}</div>
-        <div ref={legendContainerRef} className={styles.legend}></div>
-      </div>
-      <div className={styles.sectionSeparator}>
-        {selectedVariable.visualization.length > 1 ? (
-          <CalciteRadioButtonGroup
-            name='visualization-group'
-            layout='horizontal'
-            scale='s'
-            onCalciteRadioButtonChange={(event) => {
-              setSelectedVisualization(event.target.value);
-            }}
-            className={styles.centerRadioButtons}
-          >
-            {selectedVariable.visualization.map((visualization, index) => {
-              const checked = selectedVisualization === visualization.value ? { checked: true } : undefined;
-              return (
-                <CalciteLabel key={index} layout='inline' className={styles.label}>
-                  <CalciteRadioButton value={visualization.value} {...checked} scale='s'></CalciteRadioButton>
-                  {visualization.name}
-                </CalciteLabel>
-              );
-            })}
-          </CalciteRadioButtonGroup>
-        ) : (
-          <div>Displaying full volume</div>
-        )}
+        <div ref={legendContainerRef}></div>
       </div>
     </Background>
   );

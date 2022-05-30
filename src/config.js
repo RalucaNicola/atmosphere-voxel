@@ -6,70 +6,75 @@ export const variables = [
   {
     name: 'Pressure',
     id: 0,
-    description: `The pressure within the atmosphere of Earth is caused by the gravitational attraction of the planet on the atmospheric gases above the surface and it's measured in hPa (hectopascal).`,
+    description: `Retrieved air pressure in millibar.`,
     visualization: [
       {
-        name: 'Volume',
-        value: 'volume',
-        description: 'The whole volume'
+        name: 'Full dataset volume',
+        value: 'volume'
       },
       {
-        name: 'Surfaces',
-        value: 'surfaces',
-        description: 'Some surfaces for pressure'
+        name: 'Vertical sections and 1,000mb isosurface',
+        value: 'surfaces'
       }
     ]
   },
   {
-    name: 'Pressure dry',
+    name: 'Dry air pressure',
     id: 2,
-    description: `The pressure dry within the atmosphere of Earth is caused by the gravitational attraction of the planet on the atmospheric gases above the surface and it's measured in hPa (hectopascal).`,
+    description: `Retrieved dry pressure profile in millibar (retrieved with water vapor pressure set to zero.)`,
     visualization: [
       {
-        name: 'Volume',
-        value: 'volume',
-        description: 'The whole volume'
+        name: 'Full dataset volume',
+        value: 'volume'
+      },
+      {
+        name: 'Vertical sections',
+        value: 'surfaces'
       }
     ]
   },
   {
-    name: 'Pressure water vapor',
+    name: 'Moist air pressure',
     id: 3,
-    description: `The pressure water vapor within the atmosphere of Earth is caused by the gravitational attraction of the planet on the atmospheric gases above the surface and it's measured in hPa (hectopascal).`,
+    description: `Retrieved water vapor pressure in millibar.`,
     visualization: [
       {
-        name: 'Volume',
-        value: 'volume',
-        description: 'The whole volume'
+        name: 'Full dataset volume',
+        value: 'volume'
+      },
+      {
+        name: 'Vertical sections',
+        value: 'surfaces'
       }
     ]
   },
   {
     name: 'Temperature',
     id: 5,
-    description: `The temperature within the atmosphere of Earth is caused by the gravitational attraction of the planet on the atmospheric gases above the surface and it's measured in hPa (hectopascal).`,
+    description: `Air temperature profile in Kelvin.`,
     visualization: [
       {
-        name: 'Volume',
-        value: 'volume',
-        description: 'The whole volume'
+        name: 'Full dataset volume',
+        value: 'volume'
       },
       {
-        name: 'Surfaces',
-        value: 'surfaces',
-        description: 'Some surfaces for temperature'
+        name: 'Vertical sections and 190 °K and 275 °K isosurfaces',
+        value: 'surfaces'
       }
     ]
   },
   {
-    name: 'Temperature dry',
+    name: 'Dry air temperature',
     id: 7,
-    description: `The temperature within the atmosphere of Earth is caused by the gravitational attraction of the planet on the atmospheric gases above the surface and it's measured in hPa (hectopascal).`,
+    description: `Retrieved dry temperature profile in Kelvin (retrieved with water vapor pressure set to zero).`,
     visualization: [
       {
-        name: 'Volume',
-        value: 'volume',
-        description: 'The whole volume'
+        name: 'Full dataset volume',
+        value: 'volume'
+      },
+      {
+        name: 'Vertical sections',
+        value: 'surfaces'
       }
     ]
   }

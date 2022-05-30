@@ -1,0 +1,12 @@
+.label {
+  cursor: pointer;
+}
+
+.separator:before {
+  content: '';
+  width: 80%;
+  margin: 10px auto;
+  border-top: 1px solid rgba(255 255 255 / 0.5);
+  display: block;
+  padding: 0 0 10px 0;
+}

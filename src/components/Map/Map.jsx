@@ -5,6 +5,10 @@ import WebScene from '@arcgis/core/WebScene';
 import TimeExtent from '@arcgis/core/TimeExtent';
 import { mapConfig } from '../../config';
 
+const getSidePadding = () => {
+  return Math.min(Math.max(window.innerWidth * 0.3, 200), 300);
+};
+
 const Map = ({ selectedTime, children }) => {
   const mapDivRef = useRef();
   const [mapView, setMapView] = useState(null);
@@ -12,7 +16,9 @@ const Map = ({ selectedTime, children }) => {
   // initialize effect
   useEffect(() => {
     let view = null;
+
     if (mapDivRef.current) {
+      const padding = getSidePadding();
       view = new SceneView({
         container: mapDivRef.current,
         map: new WebScene({
@@ -21,7 +27,11 @@ const Map = ({ selectedTime, children }) => {
           }
         }),
         ui: { components: [] },
-        qualityProfile: 'high'
+        qualityProfile: 'high',
+        padding: {
+          left: padding,
+          right: padding
+        }
       });
       view
         .when(() => {

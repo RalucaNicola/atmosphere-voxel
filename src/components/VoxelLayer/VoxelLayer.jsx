@@ -1,7 +1,13 @@
 import { useEffect, useState } from 'react';
 
-const VoxelLayer = ({ selectedVariable, selectedVisualization, mapView }) => {
+const VoxelLayer = ({ selectedVariable, selectedVisualization, exaggeration, mapView }) => {
   const [layer, setLayer] = useState(null);
+
+  useEffect(() => {
+    if (layer && exaggeration) {
+      layer.volumeStyles.getItemAt(0).verticalExaggeration = exaggeration;
+    }
+  }, [layer, exaggeration]);
 
   useEffect(() => {
     if (layer) {

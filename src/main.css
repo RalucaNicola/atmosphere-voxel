@@ -28,7 +28,8 @@ body,
   background: none !important;
 }
 
-.esri-widget__heading.esri-legend__service-label {
+.esri-widget__heading.esri-legend__service-label,
+.esri-legend__layer-caption {
   display: none !important;
 }
 

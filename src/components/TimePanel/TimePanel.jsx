@@ -13,7 +13,6 @@ const TimePanel = ({ selectedTime, setSelectedTime }) => {
         layout='horizontal'
         scale='s'
         onCalciteRadioButtonChange={(event) => {
-          console.log(event.target.value);
           setSelectedTime(event.target.value);
         }}
       >
