@@ -15,7 +15,7 @@ body,
 .calcite-theme-dark,
 :root {
   --calcite-ui-brand: rgb(0, 194, 194);
-  --calcite-ui-brand-hover: #04532c;
+  --calcite-ui-brand-hover: rgb(3, 148, 148);
   --border-radius: 10px;
   --box-shadow: 0 1px 4px rgb(0 0 0 / 80%);
   --padding: 25px;
@@ -64,4 +64,16 @@ body,
   border-top: 1px solid rgba(255 255 255 / 0.5);
   display: block;
   padding: 0 0 10px 0;
+}
+
+a {
+  color: var(--calcite-ui-brand);
+  text-decoration: none;
+  border-bottom: 2px solid var(--calcite-ui-brand);
+}
+
+a:hover {
+  cursor: pointer;
+  color: var(--calcite-ui-brand-hover);
+  border-bottom: 2px solid var(--calcite-ui-brand-hover);
 }

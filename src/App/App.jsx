@@ -47,6 +47,23 @@ export const App = () => {
             ></VisualizationPanel>
           </div>
         </div>
+        <footer className={styles.appFooter}>
+          <p>
+            World map displaying atmospheric measurements of pressure and temperature. Dataset derived from radio
+            occultation data acquired in 2019 by{' '}
+            <a href='https://geooptics.com/' target='_blank'>
+              GeoOptics, Inc
+            </a>
+            . Map projection: Miller Cylindrical.{' '}
+          </p>
+          <p>
+            Powered by{' '}
+            <a href='https://www.esri.com/en-us/home' target='_blank'>
+              Esri
+            </a>
+            .
+          </p>
+        </footer>
       </div>
     </>
   );

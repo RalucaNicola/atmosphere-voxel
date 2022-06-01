@@ -16,6 +16,17 @@
   flex: 0 0 auto;
 }
 
+.appFooter {
+  flex: 0 0 auto;
+  font-size: var(--calcite-font-size--2);
+  padding: 10px;
+  background-color: rgba(0 0 0 / 0.3);
+  pointer-events: all;
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
 .appContent {
   flex: 1 1 auto;
   display: flex;
