@@ -4,7 +4,7 @@ const VoxelLayer = ({ selectedVariable, selectedVisualization, exaggeration, map
   const [layer, setLayer] = useState(null);
 
   useEffect(() => {
-    if (layer && exaggeration) {
+    if (layer && exaggeration && layer.volumeStyles.getItemAt(0)) {
       layer.volumeStyles.getItemAt(0).verticalExaggeration = exaggeration;
     }
   }, [layer, exaggeration]);

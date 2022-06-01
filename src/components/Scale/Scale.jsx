@@ -6,8 +6,8 @@ import * as projection from '@arcgis/core/geometry/projection';
 projection.load();
 const projectToMillerCylindrical = (geometry) => {
   const projectedGeometry = projection.project(geometry, new SpatialReference({ wkid: 54003 }));
-  projectedGeometry.spatialReference.wkt = `PROJCS["World_Miller_Cylindrical",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Miller_Cylindrical"],PARAMETER["False_Easting",0.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",0.0],UNIT["Meter",1.0]],VERTCS["Unknown VCS from ArcInfo Workstation",VDATUM["Unknown"],PARAMETER["Vertical_Shift",0.0],PARAMETER["Direction",1.0],UNIT["Meter",1.0]]`;
-  projectedGeometry.spatialReference.wkid = null;
+  // projectedGeometry.spatialReference.wkt = `PROJCS["World_Miller_Cylindrical",GEOGCS["GCS_WGS_1984",DATUM["D_WGS_1984",SPHEROID["WGS_1984",6378137.0,298.257223563]],PRIMEM["Greenwich",0.0],UNIT["Degree",0.0174532925199433]],PROJECTION["Miller_Cylindrical"],PARAMETER["False_Easting",0.0],PARAMETER["False_Northing",0.0],PARAMETER["Central_Meridian",0.0],UNIT["Meter",1.0]],VERTCS["Unknown VCS from ArcInfo Workstation",VDATUM["Unknown"],PARAMETER["Vertical_Shift",0.0],PARAMETER["Direction",1.0],UNIT["Meter",1.0]]`;
+  // projectedGeometry.spatialReference.wkid = 54003;
   return projectedGeometry;
 };
 
