@@ -9,6 +9,7 @@ export const App = () => {
   const [selectedTime, setSelectedTime] = useState(timeDates[0]);
   const [exaggeration, setExaggeration] = useState(200);
   const [legendContainer, setLegendContainer] = useState(null);
+  const [displayError, setDisplayError] = useState(false);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -17,6 +18,7 @@ export const App = () => {
           selectedVariable={selectedVariable}
           selectedVisualization={selectedVisualization}
           exaggeration={exaggeration}
+          displayError={displayError}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -30,6 +32,8 @@ export const App = () => {
               selectedVariable={selectedVariable}
               setSelectedVariable={setSelectedVariable}
               setLegendContainer={setLegendContainer}
+              displayError={displayError}
+              setDisplayError={setDisplayError}
             ></MeasurementsPanel>
             <TimePanel selectedTime={selectedTime} setSelectedTime={setSelectedTime}></TimePanel>
           </div>

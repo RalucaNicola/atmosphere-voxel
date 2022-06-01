@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-const VoxelLayer = ({ selectedVariable, selectedVisualization, exaggeration, mapView }) => {
+const VoxelLayer = ({ selectedVariable, selectedVisualization, exaggeration, mapView, displayError }) => {
   const [layer, setLayer] = useState(null);
 
   useEffect(() => {
@@ -17,9 +17,9 @@ const VoxelLayer = ({ selectedVariable, selectedVisualization, exaggeration, map
 
   useEffect(() => {
     if (layer) {
-      layer.currentVariableId = selectedVariable.id;
+      layer.currentVariableId = displayError ? selectedVariable.id + 1 : selectedVariable.id;
     }
-  }, [layer, selectedVariable]);
+  }, [layer, selectedVariable, displayError]);
   useEffect(() => {
     if (mapView) {
       const voxelLayer = mapView.map.layers.getItemAt(1);

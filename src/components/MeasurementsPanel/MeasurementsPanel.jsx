@@ -3,11 +3,23 @@ import * as styles from './MeasurementsPanel.module.css';
 import '@esri/calcite-components/dist/components/calcite-label';
 import '@esri/calcite-components/dist/components/calcite-radio-button-group';
 import '@esri/calcite-components/dist/components/calcite-radio-button';
-import { CalciteLabel, CalciteRadioButtonGroup, CalciteRadioButton } from '@esri/calcite-components-react';
+import '@esri/calcite-components/dist/components/calcite-switch';
+import {
+  CalciteLabel,
+  CalciteRadioButtonGroup,
+  CalciteRadioButton,
+  CalciteSwitch
+} from '@esri/calcite-components-react';
 import { variables } from '../../config';
 import { useEffect, useRef } from 'react';
 
-const MeasurementsPanel = ({ selectedVariable, setSelectedVariable, setLegendContainer }) => {
+const MeasurementsPanel = ({
+  selectedVariable,
+  setSelectedVariable,
+  setLegendContainer,
+  displayError,
+  setDisplayError
+}) => {
   const legendContainerRef = useRef();
   useEffect(() => {
     setLegendContainer(legendContainerRef.current);
@@ -33,10 +45,24 @@ const MeasurementsPanel = ({ selectedVariable, setSelectedVariable, setLegendCon
           );
         })}
       </CalciteRadioButtonGroup>
+
       <div className={styles.variableInfo}>
-        <div className={styles.description}>{selectedVariable.description}</div>
+        <div className={styles.description}>
+          {displayError ? `Standard error of ${selectedVariable.name.toLowerCase()}.` : selectedVariable.description}
+        </div>
         <div ref={legendContainerRef}></div>
       </div>
+      <div className='separator'></div>
+      <CalciteLabel
+        className={styles.label}
+        layout='inline'
+        onCalciteSwitchChange={(event) => {
+          setDisplayError(event.target.checked);
+        }}
+      >
+        Visualize the standard error
+        <CalciteSwitch scale='m'></CalciteSwitch>
+      </CalciteLabel>
     </Background>
   );
 };

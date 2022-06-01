@@ -10,7 +10,6 @@ import {
   CalciteRadioButton,
   CalciteSlider
 } from '@esri/calcite-components-react';
-import { useEffect } from 'react';
 
 const VisualizationPanel = ({
   selectedVariable,
@@ -39,7 +38,7 @@ const VisualizationPanel = ({
           );
         })}
       </CalciteRadioButtonGroup>
-      <div className={styles.separator}></div>
+      <div className='separator'></div>
       <CalciteLabel className={styles.label}>Vertical exaggeration</CalciteLabel>
       <CalciteSlider
         labelHandles
