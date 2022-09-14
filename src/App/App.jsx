@@ -11,6 +11,7 @@ export const App = () => {
   const [legendContainer, setLegendContainer] = useState(null);
   const [displayError, setDisplayError] = useState(false);
   const [isosurfaces, setIsosurfaces] = useState([]);
+  const [sections, setSections] = useState([]);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -22,6 +23,8 @@ export const App = () => {
           displayError={displayError}
           isosurfaces={isosurfaces}
           setIsosurfaces={setIsosurfaces}
+          sections={sections}
+          setSections={setSections}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -49,6 +52,9 @@ export const App = () => {
               setExaggeration={setExaggeration}
               isosurfaces={isosurfaces}
               setIsosurfaces={setIsosurfaces}
+              displayError={displayError}
+              sections={sections}
+              setSections={setSections}
             ></VisualizationPanel>
           </div>
         </div>

@@ -2,6 +2,11 @@
   cursor: pointer;
 }
 
-.surfaces {
-  margin-left: 20px;
+.surfaces,
+.dynamicSections {
+  margin: 0 20px 20px 20px;
+}
+
+.sections {
+  text-align: center;
 }

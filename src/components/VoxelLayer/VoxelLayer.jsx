@@ -7,7 +7,9 @@ const VoxelLayer = ({
   mapView,
   displayError,
   isosurfaces,
-  setIsosurfaces
+  setIsosurfaces,
+  sections,
+  setSections
 }) => {
   const [layer, setLayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -59,9 +61,29 @@ const VoxelLayer = ({
       }
     }
   }, [loaded, isosurfaces]);
+
+  useEffect(() => {
+    if (loaded) {
+      layer.volumeStyles.getItemAt(0).dynamicSections = sections;
+    }
+  }, [loaded, sections]);
+
+  useEffect(() => {
+    if (loaded) {
+      const sections = [];
+      for (let i = 0; i < 37; i++) {
+        sections.push({ enabled: false, label: `we${i}`, normal: [0, -1, 0], point: [0, i + 2, 0] });
+      }
+      for (let i = 0; i < 37; i++) {
+        sections.push({ enabled: false, label: `ns${i}`, normal: [1, 0, 0], point: [i + 2, 0, 0] });
+      }
+      setSections(sections);
+    }
+  }, [loaded]);
   useEffect(() => {
     if (mapView) {
       const voxelLayer = mapView.map.layers.getItemAt(1);
+
       voxelLayer
         .load()
         .then(() => setLoaded(true))

@@ -14,6 +14,7 @@ import {
   CalciteSwitch,
   CalciteCheckbox
 } from '@esri/calcite-components-react';
+import { useEffect, useState } from 'react';
 
 const VisualizationPanel = ({
   selectedVariable,
@@ -22,8 +23,34 @@ const VisualizationPanel = ({
   exaggeration,
   setExaggeration,
   isosurfaces,
-  setIsosurfaces
+  setIsosurfaces,
+  displayError,
+  sections,
+  setSections
 }) => {
+  const [displaySections, setDisplaySections] = useState(false);
+  const [currentNSSection, setCurrentNSSection] = useState(2);
+  const [currentWESection, setCurrentWESection] = useState(0);
+
+  useEffect(() => {
+    let updatedSections = null;
+    if (displaySections) {
+      updatedSections = sections.map((section) => {
+        if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
+          section.enabled = true;
+        } else {
+          section.enabled = false;
+        }
+        return section;
+      });
+    } else {
+      updatedSections = sections.map((section) => {
+        return { ...section, enabled: false };
+      });
+    }
+    setSections(updatedSections);
+  }, [displaySections, currentNSSection, currentWESection]);
+
   return (
     <Background title='Visualization' size='small'>
       <CalciteRadioButtonGroup
@@ -51,7 +78,7 @@ const VisualizationPanel = ({
           Surfaces and sections
         </CalciteLabel>
       </CalciteRadioButtonGroup>
-      {isosurfaces.length > 0 ? (
+      {!displayError && isosurfaces.length > 0 ? (
         <div className={styles.surfaces}>
           {isosurfaces.map((surface, index) => (
             <CalciteLabel
@@ -80,7 +107,51 @@ const VisualizationPanel = ({
       ) : (
         ''
       )}
+      <div className={styles.dynamicSections}>
+        <CalciteLabel
+          className={styles.label}
+          layout='inline'
+          onCalciteSwitchChange={(event) => {
+            setDisplaySections(event.target.checked);
+          }}
+        >
+          Display sections
+          <CalciteSwitch scale='m'></CalciteSwitch>
+        </CalciteLabel>
+        {displaySections ? (
+          <div className={styles.sections}>
+            <p>North - South</p>
+            <CalciteSlider
+              min='0'
+              max='36'
+              scale='s'
+              value={currentNSSection}
+              snap
+              step='1'
+              onCalciteSliderInput={(event) => {
+                const value = event.target.value;
+                setCurrentNSSection(value);
+              }}
+            ></CalciteSlider>
 
+            <p>West - East</p>
+            <CalciteSlider
+              min='0'
+              max='36'
+              scale='s'
+              value={currentWESection}
+              snap
+              step='1'
+              onCalciteSliderInput={(event) => {
+                const value = event.target.value;
+                setCurrentWESection(value);
+              }}
+            ></CalciteSlider>
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
       <div className='separator'></div>
       <CalciteLabel
         className={styles.label}
