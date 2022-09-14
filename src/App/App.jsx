@@ -5,11 +5,12 @@ import * as styles from './App.module.css';
 
 export const App = () => {
   const [selectedVariable, setSelectedVariable] = useState(variables[0]);
-  const [selectedVisualization, setSelectedVisualization] = useState(variables[0].visualization[0].value);
+  const [selectedVisualization, setSelectedVisualization] = useState('volume');
   const [selectedTime, setSelectedTime] = useState(timeDates[0]);
   const [exaggeration, setExaggeration] = useState(200);
   const [legendContainer, setLegendContainer] = useState(null);
   const [displayError, setDisplayError] = useState(false);
+  const [isosurfaces, setIsosurfaces] = useState([]);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -19,6 +20,8 @@ export const App = () => {
           selectedVisualization={selectedVisualization}
           exaggeration={exaggeration}
           displayError={displayError}
+          isosurfaces={isosurfaces}
+          setIsosurfaces={setIsosurfaces}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -44,6 +47,8 @@ export const App = () => {
               setSelectedVisualization={setSelectedVisualization}
               exaggeration={exaggeration}
               setExaggeration={setExaggeration}
+              isosurfaces={isosurfaces}
+              setIsosurfaces={setIsosurfaces}
             ></VisualizationPanel>
           </div>
         </div>
