@@ -31,6 +31,15 @@ const Map = ({ selectedTime, children }) => {
         padding: {
           left: padding,
           right: padding
+        },
+        alphaCompositingEnabled: true,
+        environment: {
+          background: {
+            type: 'color',
+            color: [0, 0, 0, 0]
+          },
+          starsEnabled: false,
+          atmosphereEnabled: false
         }
       });
       view

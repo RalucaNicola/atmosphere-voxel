@@ -12,6 +12,8 @@
   overflow-y: auto;
   display: flex;
   flex-direction: column;
+  backdrop-filter: blur(4px);
+  filter: drop-shadow(2px 4px 6px rgba(0 255 255 / 0.5));
 }
 
 .scroll {

@@ -9,10 +9,16 @@ h2 {
   margin: 0 0 5px 0;
 }
 
+h1,
+h2 {
+  font-family: 'Wallpoet', cursive;
+}
+
 .titleBackground {
-  background: linear-gradient(0.25turn, rgba(26 230 230 / 0) 20%, rgba(26 230 230 / 0.4) 50%, rgba(26 230 230 / 0) 80%);
+  background: linear-gradient(0.25turn, rgba(26 230 230 / 0) 20%, rgba(26 230 230 / 0.2) 50%, rgba(26 230 230 / 0) 80%);
   color: white;
   font-style: italic;
   text-align: center;
   letter-spacing: 1.3px;
+  text-transform: uppercase;
 }

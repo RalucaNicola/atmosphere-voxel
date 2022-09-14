@@ -1,4 +1,5 @@
 @import 'https://js.arcgis.com/4.23/@arcgis/core/assets/esri/themes/dark/main.css';
+@import url('https://fonts.googleapis.com/css2?family=Wallpoet&display=swap');
 
 html,
 body,
@@ -9,7 +10,9 @@ body,
   width: 100%;
   font-family: var(--calcite-sans-family);
   color: white;
-  background-color: #3a3d54;
+}
+body {
+  background: radial-gradient(#004763, #111111);
 }
 
 .calcite-theme-dark,
@@ -19,7 +22,7 @@ body,
   --border-radius: 10px;
   --box-shadow: 0 1px 4px rgb(0 0 0 / 80%);
   --padding: 25px;
-  --border-corners: 1px solid rgba(0 255 255 / 0.8);
+  --border-corners: 1px solid rgba(0 255 255 / 0.6);
   --mobile-font-size: 12px;
   --font-size: 14px;
 }
