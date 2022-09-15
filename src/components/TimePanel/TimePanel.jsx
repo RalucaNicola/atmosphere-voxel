@@ -7,7 +7,7 @@ import { timeDates } from '../../config';
 import * as styles from './TimePanel.module.css';
 const TimePanel = ({ selectedTime, setSelectedTime }) => {
   return (
-    <Background title='Time' size='small'>
+    <Background title='2019' size='small'>
       <CalciteRadioButtonGroup
         name='time-group'
         layout='horizontal'

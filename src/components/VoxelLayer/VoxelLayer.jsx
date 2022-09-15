@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import * as reactiveUtils from '@arcgis/core/core/reactiveUtils';
 
 const VoxelLayer = ({
   selectedVariable,
@@ -19,10 +20,10 @@ const VoxelLayer = ({
   const [layerView, setLayerView] = useState(null);
 
   useEffect(() => {
-    if (layer && exaggeration && layer.volumeStyles.getItemAt(0)) {
+    if (loaded && exaggeration) {
       layer.volumeStyles.getItemAt(0).verticalExaggeration = exaggeration;
     }
-  }, [layer, exaggeration]);
+  }, [loaded, exaggeration]);
 
   useEffect(() => {
     if (layer) {
@@ -40,12 +41,10 @@ const VoxelLayer = ({
     if (loaded) {
       const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
       if (style && style.transferFunction) {
-        const unit = layer.variables.filter((variable) => variable.id === selectedVariable.id).getItemAt(0).unit;
         const range = style.transferFunction.stretchRange;
         setIsosurfaceInfo({
-          min: Math.floor(range[0]),
-          max: Math.floor(range[1]),
-          unit
+          min: Math.round(range[0]),
+          max: Math.round(range[1])
         });
         setIsosurfaceValue(Math.floor((range[0] + range[1]) / 2));
       }
@@ -98,16 +97,16 @@ const VoxelLayer = ({
       setSections(sections);
     }
   }, [loaded]);
+
   useEffect(() => {
     if (mapView) {
       const voxelLayer = mapView.map.layers.getItemAt(1);
       mapView.whenLayerView(voxelLayer).then((lyrView) => {
         setLayerView(lyrView);
       });
-      voxelLayer
-        .load()
-        .then(() => setLoaded(true))
-        .catch(() => setLoaded(false));
+
+      reactiveUtils.watch(() => voxelLayer.loaded, setLoaded);
+
       window.voxelLayer = voxelLayer;
       setLayer(voxelLayer);
     }

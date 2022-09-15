@@ -10,7 +10,7 @@ export const App = () => {
   const [exaggeration, setExaggeration] = useState(200);
   const [legendContainer, setLegendContainer] = useState(null);
   const [displayError, setDisplayError] = useState(false);
-  const [isosurfaceInfo, setIsosurfaceInfo] = useState([]);
+  const [isosurfaceInfo, setIsosurfaceInfo] = useState(null);
   const [sections, setSections] = useState([]);
   const [displayIsosurface, setDisplayIsosurface] = useState(true);
   const [isosurfaceValue, setIsosurfaceValue] = useState();

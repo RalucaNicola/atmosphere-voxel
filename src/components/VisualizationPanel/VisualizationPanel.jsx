@@ -33,20 +33,22 @@ const VisualizationPanel = ({
   displaySections,
   setDisplaySections
 }) => {
-  const [currentNSSection, setCurrentNSSection] = useState(2);
+  const [currentNSSection, setCurrentNSSection] = useState(0);
   const [currentWESection, setCurrentWESection] = useState(0);
 
   useEffect(() => {
-    let updatedSections = sections.map((section) => {
-      if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
-        section.enabled = true;
-      } else {
-        section.enabled = false;
-      }
-      return section;
-    });
-    setSections(updatedSections);
-  }, [currentNSSection, currentWESection]);
+    if (displaySections) {
+      let updatedSections = sections.map((section) => {
+        if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
+          section.enabled = true;
+        } else {
+          section.enabled = false;
+        }
+        return section;
+      });
+      setSections(updatedSections);
+    }
+  }, [currentNSSection, currentWESection, displaySections]);
 
   return (
     <Background title='Visualization' size='small'>
@@ -75,7 +77,7 @@ const VisualizationPanel = ({
           Surfaces and sections
         </CalciteLabel>
       </CalciteRadioButtonGroup>
-      {!displayError && selectedVisualization === 'surfaces' ? (
+      {!displayError && selectedVisualization === 'surfaces' && isosurfaceInfo ? (
         <div className={styles.surfaces}>
           <CalciteLabel
             className={styles.label}
@@ -94,7 +96,7 @@ const VisualizationPanel = ({
                 labelHandles
                 min={isosurfaceInfo.min}
                 max={isosurfaceInfo.max}
-                scale='s'
+                scale='m'
                 value={isosurfaceValue}
                 snap
                 step={isosurfaceInfo.max - isosurfaceInfo.min < 10 ? 0.2 : 1}
@@ -129,7 +131,7 @@ const VisualizationPanel = ({
               <CalciteSlider
                 min='0'
                 max='36'
-                scale='s'
+                scale='m'
                 value={currentNSSection}
                 snap
                 step='1'
@@ -143,7 +145,7 @@ const VisualizationPanel = ({
               <CalciteSlider
                 min='0'
                 max='36'
-                scale='s'
+                scale='m'
                 value={currentWESection}
                 snap
                 step='1'
@@ -161,23 +163,12 @@ const VisualizationPanel = ({
         ''
       )}
       <div className='separator'></div>
-      <CalciteLabel
-        className={styles.label}
-        layout='inline-space-between'
-        onCalciteSwitchChange={(event) => {
-          console.log(event.target.checked ? 'Applied slice' : 'Slice not applied');
-        }}
-      >
-        Apply slices
-        <CalciteSwitch scale='m'></CalciteSwitch>
-      </CalciteLabel>
-      <div className='separator'></div>
       <CalciteLabel className={styles.label}>Vertical exaggeration</CalciteLabel>
       <CalciteSlider
         labelHandles
         min='1'
         max='200'
-        scale='s'
+        scale='m'
         value={exaggeration}
         snap
         step='10'
