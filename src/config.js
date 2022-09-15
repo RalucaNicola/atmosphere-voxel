@@ -7,13 +7,13 @@ export const variables = [
   {
     name: 'Temperature',
     id: 10,
-    description: `Air temperature profile in Kelvin.`,
+    description: `Air temperature profile in°K.`,
     unit: '°K'
   },
   {
     name: 'Dry air temperature',
     id: 14,
-    description: `Retrieved dry temperature profile in Kelvin (retrieved with water vapor pressure set to zero).`,
+    description: `Retrieved dry temperature profile in °K (retrieved with water vapor pressure set to zero).`,
     unit: '°K'
   },
   {
@@ -36,4 +36,4 @@ export const variables = [
   }
 ];
 
-export const timeDates = ['June 1, 2019', 'July 1, 2019', 'August 1, 2019'];
+export const timeDates = ['June 1', 'July 1', 'August 1'];

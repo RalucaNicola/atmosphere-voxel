@@ -72,7 +72,7 @@ export const App = () => {
         </div>
         <footer className={styles.appFooter}>
           <p>
-            World map displaying atmospheric measurements of pressure and temperature. Dataset derived from radio
+            World map displaying world atmospheric measurements of pressure and temperature. Dataset derived from radio
             occultation data acquired in 2019 by{' '}
             <a href='https://geooptics.com/' target='_blank'>
               GeoOptics, Inc

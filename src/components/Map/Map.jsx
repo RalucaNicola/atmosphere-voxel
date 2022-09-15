@@ -59,9 +59,10 @@ const Map = ({ selectedTime, children }) => {
 
   useEffect(() => {
     if (mapView && selectedTime) {
-      const startDate = new Date(selectedTime);
+      const date = `${selectedTime}, 2019`;
+      const startDate = new Date(date);
       startDate.setDate(startDate.getDate() - 4);
-      const endDate = new Date(selectedTime);
+      const endDate = new Date(date);
       endDate.setDate(endDate.getDate() + 4);
       const timeExtent = new TimeExtent({
         start: startDate,

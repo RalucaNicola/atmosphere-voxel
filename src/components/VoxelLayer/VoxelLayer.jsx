@@ -104,8 +104,11 @@ const VoxelLayer = ({
       mapView.whenLayerView(voxelLayer).then((lyrView) => {
         setLayerView(lyrView);
       });
-
-      reactiveUtils.watch(() => voxelLayer.loaded, setLoaded);
+      if (!voxelLayer.loaded) {
+        reactiveUtils.watch(() => voxelLayer.loaded, setLoaded);
+      } else {
+        setLoaded(true);
+      }
 
       window.voxelLayer = voxelLayer;
       setLayer(voxelLayer);

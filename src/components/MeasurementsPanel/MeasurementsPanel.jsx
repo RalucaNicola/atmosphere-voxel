@@ -25,7 +25,7 @@ const MeasurementsPanel = ({
     setLegendContainer(legendContainerRef.current);
   }, [legendContainerRef]);
   return (
-    <Background title='Measurement' size='small'>
+    <Background title='Variables' size='small'>
       <CalciteRadioButtonGroup
         name='pressure-group'
         layout='vertical'
