@@ -10,8 +10,11 @@ export const App = () => {
   const [exaggeration, setExaggeration] = useState(200);
   const [legendContainer, setLegendContainer] = useState(null);
   const [displayError, setDisplayError] = useState(false);
-  const [isosurfaces, setIsosurfaces] = useState([]);
+  const [isosurfaceInfo, setIsosurfaceInfo] = useState([]);
   const [sections, setSections] = useState([]);
+  const [displayIsosurface, setDisplayIsosurface] = useState(true);
+  const [isosurfaceValue, setIsosurfaceValue] = useState();
+  const [displaySections, setDisplaySections] = useState(false);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -21,10 +24,14 @@ export const App = () => {
           selectedVisualization={selectedVisualization}
           exaggeration={exaggeration}
           displayError={displayError}
-          isosurfaces={isosurfaces}
-          setIsosurfaces={setIsosurfaces}
+          isosurfaceInfo={isosurfaceInfo}
+          setIsosurfaceInfo={setIsosurfaceInfo}
+          isosurfaceValue={isosurfaceValue}
+          setIsosurfaceValue={setIsosurfaceValue}
           sections={sections}
           setSections={setSections}
+          displayIsosurface={displayIsosurface}
+          displaySections={displaySections}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -50,11 +57,16 @@ export const App = () => {
               setSelectedVisualization={setSelectedVisualization}
               exaggeration={exaggeration}
               setExaggeration={setExaggeration}
-              isosurfaces={isosurfaces}
-              setIsosurfaces={setIsosurfaces}
+              isosurfaceInfo={isosurfaceInfo}
               displayError={displayError}
               sections={sections}
               setSections={setSections}
+              displayIsosurface={displayIsosurface}
+              setDisplayIsosurface={setDisplayIsosurface}
+              isosurfaceValue={isosurfaceValue}
+              setIsosurfaceValue={setIsosurfaceValue}
+              displaySections={displaySections}
+              setDisplaySections={setDisplaySections}
             ></VisualizationPanel>
           </div>
         </div>

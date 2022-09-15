@@ -5,29 +5,34 @@ export const mapConfig = {
 
 export const variables = [
   {
-    name: 'Pressure',
-    id: 0,
-    description: `Retrieved air pressure in millibar.`
-  },
-  {
-    name: 'Dry air pressure',
-    id: 4,
-    description: `Retrieved dry pressure profile in millibar (retrieved with water vapor pressure set to zero.)`
-  },
-  {
-    name: 'Moist air pressure',
-    id: 6,
-    description: `Retrieved water vapor pressure in millibar.`
-  },
-  {
     name: 'Temperature',
     id: 10,
-    description: `Air temperature profile in Kelvin.`
+    description: `Air temperature profile in Kelvin.`,
+    unit: '°K'
   },
   {
     name: 'Dry air temperature',
     id: 14,
-    description: `Retrieved dry temperature profile in Kelvin (retrieved with water vapor pressure set to zero).`
+    description: `Retrieved dry temperature profile in Kelvin (retrieved with water vapor pressure set to zero).`,
+    unit: '°K'
+  },
+  {
+    name: 'Pressure',
+    id: 0,
+    description: `Retrieved air pressure in millibar.`,
+    unit: 'mb'
+  },
+  {
+    name: 'Dry air pressure',
+    id: 4,
+    description: `Retrieved dry pressure profile in millibar (retrieved with water vapor pressure set to zero.)`,
+    unit: 'mb'
+  },
+  {
+    name: 'Moist air pressure',
+    id: 6,
+    description: `Retrieved water vapor pressure in millibar.`,
+    unit: 'mb'
   }
 ];
 

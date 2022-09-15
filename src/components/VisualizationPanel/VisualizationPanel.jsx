@@ -22,34 +22,31 @@ const VisualizationPanel = ({
   setSelectedVisualization,
   exaggeration,
   setExaggeration,
-  isosurfaces,
-  setIsosurfaces,
+  isosurfaceInfo,
   displayError,
   sections,
-  setSections
+  setSections,
+  isosurfaceValue,
+  setIsosurfaceValue,
+  displayIsosurface,
+  setDisplayIsosurface,
+  displaySections,
+  setDisplaySections
 }) => {
-  const [displaySections, setDisplaySections] = useState(false);
   const [currentNSSection, setCurrentNSSection] = useState(2);
   const [currentWESection, setCurrentWESection] = useState(0);
 
   useEffect(() => {
-    let updatedSections = null;
-    if (displaySections) {
-      updatedSections = sections.map((section) => {
-        if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
-          section.enabled = true;
-        } else {
-          section.enabled = false;
-        }
-        return section;
-      });
-    } else {
-      updatedSections = sections.map((section) => {
-        return { ...section, enabled: false };
-      });
-    }
+    let updatedSections = sections.map((section) => {
+      if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
+        section.enabled = true;
+      } else {
+        section.enabled = false;
+      }
+      return section;
+    });
     setSections(updatedSections);
-  }, [displaySections, currentNSSection, currentWESection]);
+  }, [currentNSSection, currentWESection]);
 
   return (
     <Background title='Visualization' size='small'>
@@ -78,84 +75,95 @@ const VisualizationPanel = ({
           Surfaces and sections
         </CalciteLabel>
       </CalciteRadioButtonGroup>
-      {!displayError && isosurfaces.length > 0 ? (
+      {!displayError && selectedVisualization === 'surfaces' ? (
         <div className={styles.surfaces}>
-          {isosurfaces.map((surface, index) => (
-            <CalciteLabel
-              key={index}
-              layout='inline'
-              className={styles.label}
-              onCalciteCheckboxChange={(evt) => {
-                const updatedSurfaces = isosurfaces.map((surface) => {
-                  if (surface.value === evt.target.value) {
-                    surface.enabled = evt.target.checked;
-                  }
-                  return surface;
-                });
-                setIsosurfaces(updatedSurfaces);
-              }}
-            >
-              <CalciteCheckbox
-                value={surface.value}
-                checked={surface.enabled ? true : undefined}
+          <CalciteLabel
+            className={styles.label}
+            layout='inline-space-between'
+            onCalciteSwitchChange={(event) => {
+              setDisplayIsosurface(event.target.checked);
+            }}
+          >
+            Display isosurface ({selectedVariable.unit})
+            <CalciteSwitch scale='m' checked={displayIsosurface ? true : undefined}></CalciteSwitch>
+          </CalciteLabel>
+          {displayIsosurface ? (
+            <>
+              <img className={styles.surfaceGraphic} src='./assets/surface.png'></img>
+              <CalciteSlider
+                labelHandles
+                min={isosurfaceInfo.min}
+                max={isosurfaceInfo.max}
                 scale='s'
-              ></CalciteCheckbox>
-              {surface.label}
-            </CalciteLabel>
-          ))}
+                value={isosurfaceValue}
+                snap
+                step={isosurfaceInfo.max - isosurfaceInfo.min < 10 ? 0.2 : 1}
+                onCalciteSliderInput={(event) => {
+                  const value = event.target.value;
+                  setIsosurfaceValue(value);
+                }}
+              ></CalciteSlider>
+            </>
+          ) : (
+            ''
+          )}
         </div>
       ) : (
         ''
       )}
-      <div className={styles.dynamicSections}>
-        <CalciteLabel
-          className={styles.label}
-          layout='inline'
-          onCalciteSwitchChange={(event) => {
-            setDisplaySections(event.target.checked);
-          }}
-        >
-          Display sections
-          <CalciteSwitch scale='m'></CalciteSwitch>
-        </CalciteLabel>
-        {displaySections ? (
-          <div className={styles.sections}>
-            <p>North - South</p>
-            <CalciteSlider
-              min='0'
-              max='36'
-              scale='s'
-              value={currentNSSection}
-              snap
-              step='1'
-              onCalciteSliderInput={(event) => {
-                const value = event.target.value;
-                setCurrentNSSection(value);
-              }}
-            ></CalciteSlider>
+      {selectedVisualization === 'surfaces' ? (
+        <div className={styles.dynamicSections}>
+          <CalciteLabel
+            className={styles.label}
+            layout='inline-space-between'
+            onCalciteSwitchChange={(event) => {
+              setDisplaySections(event.target.checked);
+            }}
+          >
+            Display sections
+            <CalciteSwitch scale='m' checked={displaySections ? true : undefined}></CalciteSwitch>
+          </CalciteLabel>
+          {displaySections ? (
+            <div className={styles.sections}>
+              <img className={styles.surfaceGraphic} src='./assets/section-north-south.png'></img>
+              <CalciteSlider
+                min='0'
+                max='36'
+                scale='s'
+                value={currentNSSection}
+                snap
+                step='1'
+                onCalciteSliderInput={(event) => {
+                  const value = event.target.value;
+                  setCurrentNSSection(value);
+                }}
+              ></CalciteSlider>
 
-            <p>West - East</p>
-            <CalciteSlider
-              min='0'
-              max='36'
-              scale='s'
-              value={currentWESection}
-              snap
-              step='1'
-              onCalciteSliderInput={(event) => {
-                const value = event.target.value;
-                setCurrentWESection(value);
-              }}
-            ></CalciteSlider>
-          </div>
-        ) : (
-          ''
-        )}
-      </div>
+              <img className={styles.surfaceGraphic} src='./assets/section-west-east.png'></img>
+              <CalciteSlider
+                min='0'
+                max='36'
+                scale='s'
+                value={currentWESection}
+                snap
+                step='1'
+                onCalciteSliderInput={(event) => {
+                  const value = event.target.value;
+                  setCurrentWESection(value);
+                }}
+              ></CalciteSlider>
+            </div>
+          ) : (
+            ''
+          )}
+        </div>
+      ) : (
+        ''
+      )}
       <div className='separator'></div>
       <CalciteLabel
         className={styles.label}
-        layout='inline'
+        layout='inline-space-between'
         onCalciteSwitchChange={(event) => {
           console.log(event.target.checked ? 'Applied slice' : 'Slice not applied');
         }}

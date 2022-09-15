@@ -6,13 +6,17 @@ const VoxelLayer = ({
   exaggeration,
   mapView,
   displayError,
-  isosurfaces,
-  setIsosurfaces,
+  setIsosurfaceInfo,
   sections,
-  setSections
+  setSections,
+  displayIsosurface,
+  isosurfaceValue,
+  setIsosurfaceValue,
+  displaySections
 }) => {
   const [layer, setLayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [layerView, setLayerView] = useState(null);
 
   useEffect(() => {
     if (layer && exaggeration && layer.volumeStyles.getItemAt(0)) {
@@ -34,33 +38,47 @@ const VoxelLayer = ({
 
   useEffect(() => {
     if (loaded) {
-      const isosurfaces = layer.variableStyles
-        .filter((style) => style.variableId === selectedVariable.id)
-        .getItemAt(0).isosurfaces;
-      if (isosurfaces && isosurfaces.length) {
-        setIsosurfaces(
-          isosurfaces.map((surface) => ({
-            color: surface.color,
-            enabled: surface.enabled,
-            value: surface.value,
-            label: surface.label
-          }))
-        );
-      } else {
-        setIsosurfaces([]);
+      const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
+      if (style && style.transferFunction) {
+        const unit = layer.variables.filter((variable) => variable.id === selectedVariable.id).getItemAt(0).unit;
+        const range = style.transferFunction.stretchRange;
+        setIsosurfaceInfo({
+          min: Math.floor(range[0]),
+          max: Math.floor(range[1]),
+          unit
+        });
+        setIsosurfaceValue(Math.floor((range[0] + range[1]) / 2));
       }
     }
   }, [loaded, selectedVariable]);
+
   useEffect(() => {
-    if (loaded) {
+    if (loaded && layerView && selectedVisualization === 'surfaces') {
       const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
-      if (style && style.isosurfaces.length === isosurfaces.length) {
-        style.isosurfaces.forEach((surface, index) => {
-          surface.enabled = isosurfaces.getItemAt(index).enabled;
-        });
+      const color = layerView.getLockedColorForIsosurface(selectedVariable.id, isosurfaceValue);
+      if (style) {
+        style.isosurfaces = [
+          {
+            value: isosurfaceValue,
+            enabled: true,
+            color: { ...color, a: 0.8 }
+          }
+        ];
       }
     }
-  }, [loaded, isosurfaces]);
+  }, [loaded, selectedVariable, isosurfaceValue, layerView, selectedVisualization]);
+
+  useEffect(() => {
+    if (layer) {
+      layer.enableIsosurfaces = displayIsosurface;
+    }
+  }, [layer, displayIsosurface]);
+
+  useEffect(() => {
+    if (layer) {
+      layer.enableDynamicSections = displaySections;
+    }
+  }, [layer, displaySections]);
 
   useEffect(() => {
     if (loaded) {
@@ -83,7 +101,9 @@ const VoxelLayer = ({
   useEffect(() => {
     if (mapView) {
       const voxelLayer = mapView.map.layers.getItemAt(1);
-
+      mapView.whenLayerView(voxelLayer).then((lyrView) => {
+        setLayerView(lyrView);
+      });
       voxelLayer
         .load()
         .then(() => setLoaded(true))
