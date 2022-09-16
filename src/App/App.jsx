@@ -37,7 +37,7 @@ export const App = () => {
       </Map>
       <div className={styles.appLayout}>
         <header className={styles.appTitle}>
-          <Title text='Atmospheric measurements using radio occultation' size='large'></Title>
+          <Title text='World atmospheric measurements' size='large'></Title>
         </header>
         <div className={styles.appContent}>
           <div className={styles.leftPane}>
@@ -72,12 +72,16 @@ export const App = () => {
         </div>
         <footer className={styles.appFooter}>
           <p>
-            World map displaying world atmospheric measurements of pressure and temperature. Dataset derived from radio
-            occultation data acquired in 2019 by{' '}
+            World map displaying measurements of pressure and temperature. Dataset derived from radio occultation data
+            acquired in 2019 by{' '}
             <a href='https://geooptics.com/' target='_blank'>
               GeoOptics, Inc
             </a>
-            . Map projection: Miller Cylindrical.{' '}
+            . Map projection: Miller Cylindrical. See code on{' '}
+            <a href='https://github.com/RalucaNicola/atmosphere-voxel' target='_blank'>
+              GitHub
+            </a>
+            .
           </p>
           <p>
             Powered by{' '}

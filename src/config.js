@@ -7,7 +7,7 @@ export const variables = [
   {
     name: 'Temperature',
     id: 10,
-    description: `Air temperature profile in°K.`,
+    description: `Air temperature profile in °K.`,
     unit: '°K'
   },
   {
