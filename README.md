@@ -1,5 +1,10 @@
 # Exploring world atmospheric temperature and pressure in 3D
 
+This application displays atmospheric measurements like temperature and pressure over time in 3D.
+
+[![screenshot](public/screenshot.png)](https://geoxc-apps4.bd.esri.com/atmospheric-measurements/)
+[Live link](https://geoxc-apps4.bd.esri.com/atmospheric-measurements/). Data provided by [GeoOptics Inc](https://geooptics.com/). Visualized with [ArcGIS API for JavaScript](https://developers.arcgis.com/javascript/latest/).
+
 ## What are atmospheric pressure and temperature?
 
 Atmospheric pressure is the force exerted on a surface by the air above as gravity pulls it to the Earth. The temperature at different levels of the Earth's atmosphere is influenced by incoming solar radiation, humidity and of course by the altitude.
@@ -16,7 +21,7 @@ The dataset that we are visualizing is provided by [GeoOptics](https://geooptics
 
 Once we published it as a voxel layer, we can load it in a webscene to visualize it. By default the layer is rendered as a volume.
 
-### Changing variables
+### Change variables
 
 We have several variables that we can visualize. You can discover them by accessing the array `voxelLayer.variables`.
 
@@ -39,7 +44,7 @@ voxelLayer.currentVariableId = 10;
 
 If we compare the pressure and the temperature, we can see how pressure changes almost linearly with altitude, whereas temperature fluctuates much more because it doesn't only depend on altitude, but also on solar radiation and humidity.
 
-### Visualizing surfaces
+### Visualize surfaces
 
 We can switch from visualizing the whole volume to visualizing only parts of it. In JavaScript we do so by applying slices or by changing the `renderMode` property of the voxel layer to `surfaces`: `voxelLayer.renderMode = 'surfaces'`.
 Like this we can display surfaces with the same variable value, also called isosurfaces:
@@ -93,3 +98,11 @@ function createIsosurface(value) {
   }
 }
 ```
+
+### Visualize vertical sections
+
+### Display the error in calculating those values
+
+### Change the time variable
+
+### Change the vertical exaggeration
