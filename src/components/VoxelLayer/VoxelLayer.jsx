@@ -17,7 +17,6 @@ const VoxelLayer = ({
 }) => {
   const [layer, setLayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
-  const [layerView, setLayerView] = useState(null);
 
   useEffect(() => {
     if (loaded && exaggeration) {
@@ -52,9 +51,9 @@ const VoxelLayer = ({
   }, [loaded, selectedVariable]);
 
   useEffect(() => {
-    if (loaded && layerView && selectedVisualization === 'surfaces') {
+    if (loaded && layer && selectedVisualization === 'surfaces') {
       const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
-      const color = layerView.getLockedColorForIsosurface(selectedVariable.id, isosurfaceValue);
+      const color = layer.getColorForContinuousDataValue(selectedVariable.id, isosurfaceValue);
       if (style) {
         style.isosurfaces = [
           {
@@ -65,7 +64,7 @@ const VoxelLayer = ({
         ];
       }
     }
-  }, [loaded, selectedVariable, isosurfaceValue, layerView, selectedVisualization]);
+  }, [loaded, selectedVariable, isosurfaceValue, layer, selectedVisualization]);
 
   useEffect(() => {
     if (layer) {
@@ -101,9 +100,6 @@ const VoxelLayer = ({
   useEffect(() => {
     if (mapView) {
       const voxelLayer = mapView.map.layers.getItemAt(1);
-      mapView.whenLayerView(voxelLayer).then((lyrView) => {
-        setLayerView(lyrView);
-      });
       if (!voxelLayer.loaded) {
         reactiveUtils.watch(() => voxelLayer.loaded, setLoaded);
       } else {

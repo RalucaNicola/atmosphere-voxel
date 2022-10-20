@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/RalucaNicola/atmosphere-voxel#readme",
   "devDependencies": {
-    "@arcgis/core": "^4.25.0-next.20220908",
+    "@arcgis/core": "^4.25.0-next.20221018",
     "@vitejs/plugin-react": "^1.3.2",
     "vite": "^2.9.8"
   },
