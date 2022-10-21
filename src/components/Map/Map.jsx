@@ -10,16 +10,14 @@ const getSidePadding = () => {
 };
 
 const Map = ({ selectedTime, children }) => {
-  const mapDivRef = useRef();
+  const mapDivRef = useRef(null);
   const [mapView, setMapView] = useState(null);
 
   // initialize effect
   useEffect(() => {
-    let view = null;
-
     if (mapDivRef.current) {
       const padding = getSidePadding();
-      view = new SceneView({
+      let view = new SceneView({
         container: mapDivRef.current,
         map: new WebScene({
           portalItem: {
@@ -50,9 +48,9 @@ const Map = ({ selectedTime, children }) => {
         .catch(console.error);
     }
     return () => {
-      if (view) {
-        view.destroy();
-        view = null;
+      if (mapView) {
+        mapView.destroy();
+        setMapView(null);
       }
     };
   }, [mapDivRef]);
