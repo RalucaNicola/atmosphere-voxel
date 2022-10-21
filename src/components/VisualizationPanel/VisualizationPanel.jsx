@@ -2,7 +2,6 @@ import { Background } from '../index';
 import * as styles from './VisualizationPanel.module.css';
 import '@esri/calcite-components/dist/components/calcite-slider';
 import '@esri/calcite-components/dist/components/calcite-switch';
-import '@esri/calcite-components/dist/components/calcite-checkbox';
 import '@esri/calcite-components/dist/components/calcite-label';
 import '@esri/calcite-components/dist/components/calcite-radio-button-group';
 import '@esri/calcite-components/dist/components/calcite-radio-button';
@@ -11,8 +10,7 @@ import {
   CalciteRadioButtonGroup,
   CalciteRadioButton,
   CalciteSlider,
-  CalciteSwitch,
-  CalciteCheckbox
+  CalciteSwitch
 } from '@esri/calcite-components-react';
 import { useEffect, useState } from 'react';
 
