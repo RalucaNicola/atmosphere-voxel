@@ -41,19 +41,21 @@ const VoxelLayer = ({
       const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
       if (style && style.transferFunction) {
         const range = style.transferFunction.stretchRange;
+        const min = Math.min(Math.round(range[0]), Math.round(range[1]));
+        const max = Math.max(Math.round(range[0]), Math.round(range[1]));
         setIsosurfaceInfo({
-          min: Math.round(range[0]),
-          max: Math.round(range[1])
+          min,
+          max
         });
-        setIsosurfaceValue(Math.floor((range[0] + range[1]) / 2));
+        setIsosurfaceValue(Math.floor((min + max) / 2));
       }
     }
   }, [loaded, selectedVariable]);
 
   useEffect(() => {
-    if (loaded && layer && selectedVisualization === 'surfaces') {
+    if (loaded && layer && selectedVisualization === 'surfaces' && isosurfaceValue) {
       const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
-      const color = layer.getColorForContinuousDataValue(selectedVariable.id, isosurfaceValue);
+      const color = layer.getColorForContinuousDataValue(selectedVariable.id, isosurfaceValue, false);
       if (style) {
         style.isosurfaces = [
           {
