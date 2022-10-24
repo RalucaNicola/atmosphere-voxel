@@ -13,6 +13,26 @@ import {
   CalciteSwitch
 } from '@esri/calcite-components-react';
 import { useEffect, useState } from 'react';
+import VoxelSlice from '@arcgis/core/layers/voxel/VoxelSlice';
+
+const getSlice = (orientation, value) => {
+  switch (orientation) {
+    case 'NS':
+      return new VoxelSlice({
+        orientation: 180,
+        tilt: 90,
+        point: [0, value, 0]
+      });
+    case 'WE':
+      return new VoxelSlice({ orientation: 270, tilt: 90, point: [value, 0, 0] });
+    case 'UD':
+      return new VoxelSlice({
+        orientation: 0,
+        tilt: 0,
+        point: [0, 0, value]
+      });
+  }
+};
 
 const VisualizationPanel = ({
   selectedVariable,
@@ -29,10 +49,16 @@ const VisualizationPanel = ({
   displayIsosurface,
   setDisplayIsosurface,
   displaySections,
-  setDisplaySections
+  setDisplaySections,
+  displaySlices,
+  setDisplaySlices,
+  setSlices
 }) => {
   const [currentNSSection, setCurrentNSSection] = useState(0);
   const [currentWESection, setCurrentWESection] = useState(0);
+  const [currentWESlice, setCurrentWESlice] = useState(getSlice('WE', 39));
+  const [currentNSSlice, setCurrentNSSlice] = useState(getSlice('NS', 1));
+  const [currentUpDownSlice, setCurrentUpDownSlice] = useState(getSlice('UD', 41));
 
   useEffect(() => {
     if (displaySections) {
@@ -47,6 +73,12 @@ const VisualizationPanel = ({
       setSections(updatedSections);
     }
   }, [currentNSSection, currentWESection, displaySections]);
+
+  useEffect(() => {
+    if (displaySlices) {
+      setSlices([currentNSSlice, currentWESlice, currentUpDownSlice]);
+    }
+  }, [currentNSSlice, currentWESlice, currentUpDownSlice, displaySlices]);
 
   return (
     <Background title='Visualization' size='small'>
@@ -160,6 +192,64 @@ const VisualizationPanel = ({
       ) : (
         ''
       )}
+      <div className='separator'></div>
+      <div>
+        <CalciteLabel
+          className={styles.label}
+          layout='inline-space-between'
+          onCalciteSwitchChange={(event) => {
+            setDisplaySlices(event.target.checked);
+          }}
+        >
+          Slice layer
+          <CalciteSwitch scale='m' checked={displaySlices ? true : undefined}></CalciteSwitch>
+        </CalciteLabel>
+        {displaySlices ? (
+          <div className={styles.slices}>
+            <img className={styles.sliceGraphic} src='./assets/slice-west-east.png'></img>
+            <CalciteSlider
+              min={2}
+              max={39}
+              scale='m'
+              value={currentWESlice.point[0]}
+              snap
+              step={1}
+              onCalciteSliderInput={(event) => {
+                const value = event.target.value;
+                setCurrentWESlice(getSlice('WE', value));
+              }}
+            ></CalciteSlider>
+            <img className={styles.sliceGraphic} src='./assets/slice-north-south.png'></img>
+            <CalciteSlider
+              min={1}
+              max={38}
+              scale='m'
+              value={currentNSSlice.point[1]}
+              snap
+              step={1}
+              onCalciteSliderInput={(event) => {
+                const value = event.target.value;
+                setCurrentNSSlice(getSlice('NS', value));
+              }}
+            ></CalciteSlider>
+            <img className={styles.sliceGraphic} src='./assets/slice-up-down.png'></img>
+            <CalciteSlider
+              min={1}
+              max={41}
+              scale='m'
+              value={currentUpDownSlice.point[2]}
+              snap
+              step={1}
+              onCalciteSliderInput={(event) => {
+                const value = event.target.value;
+                setCurrentUpDownSlice(getSlice('UD', value));
+              }}
+            ></CalciteSlider>
+          </div>
+        ) : (
+          ''
+        )}
+      </div>
       <div className='separator'></div>
       <CalciteLabel className={styles.label}>Vertical exaggeration</CalciteLabel>
       <CalciteSlider

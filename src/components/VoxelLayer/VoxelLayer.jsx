@@ -13,7 +13,9 @@ const VoxelLayer = ({
   displayIsosurface,
   isosurfaceValue,
   setIsosurfaceValue,
-  displaySections
+  displaySections,
+  displaySlices,
+  slices
 }) => {
   const [layer, setLayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -62,7 +64,7 @@ const VoxelLayer = ({
             value: isosurfaceValue,
             enabled: true,
             color: { ...color, a: 0.7 },
-            colorLocked: true
+            colorLocked: false
           }
         ];
       }
@@ -80,6 +82,18 @@ const VoxelLayer = ({
       layer.enableDynamicSections = displaySections;
     }
   }, [layer, displaySections]);
+
+  useEffect(() => {
+    if (layer) {
+      layer.enableSlices = displaySlices;
+    }
+  }, [layer, displaySlices]);
+
+  useEffect(() => {
+    if (loaded) {
+      layer.volumeStyles.getItemAt(0).slices = slices;
+    }
+  }, [loaded, slices]);
 
   useEffect(() => {
     if (loaded) {

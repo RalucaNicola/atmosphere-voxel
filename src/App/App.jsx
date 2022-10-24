@@ -15,6 +15,8 @@ export const App = () => {
   const [displayIsosurface, setDisplayIsosurface] = useState(true);
   const [isosurfaceValue, setIsosurfaceValue] = useState();
   const [displaySections, setDisplaySections] = useState(false);
+  const [displaySlices, setDisplaySlices] = useState(false);
+  const [slices, setSlices] = useState([]);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -32,6 +34,8 @@ export const App = () => {
           setSections={setSections}
           displayIsosurface={displayIsosurface}
           displaySections={displaySections}
+          displaySlices={displaySlices}
+          slices={slices}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -67,6 +71,9 @@ export const App = () => {
               setIsosurfaceValue={setIsosurfaceValue}
               displaySections={displaySections}
               setDisplaySections={setDisplaySections}
+              displaySlices={displaySlices}
+              setDisplaySlices={setDisplaySlices}
+              setSlices={setSlices}
             ></VisualizationPanel>
           </div>
         </div>

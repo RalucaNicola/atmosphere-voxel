@@ -3,7 +3,8 @@
 }
 
 .surfaces,
-.dynamicSections {
+.dynamicSections,
+.slices {
   margin: 0 20px 20px 20px;
   text-align: center;
 }
@@ -14,5 +15,10 @@
 
 .surfaceGraphic {
   height: 40px;
+  padding: 10px 0 0 0;
+}
+
+.sliceGraphic {
+  width: 120px;
   padding: 10px 0 0 0;
 }

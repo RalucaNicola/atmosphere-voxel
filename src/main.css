@@ -19,6 +19,7 @@ body {
 :root {
   --calcite-ui-brand: rgb(0, 194, 194);
   --calcite-ui-brand-hover: rgb(3, 148, 148);
+  --calcite-ui-border-2: rgba(255, 255, 255, 0.6);
   --border-radius: 10px;
   --box-shadow: 0 1px 4px rgb(0 0 0 / 80%);
   --padding: 25px;
