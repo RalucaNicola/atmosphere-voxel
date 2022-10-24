@@ -17,13 +17,15 @@ The technique involves a low earth orbit satellite receiving a signal from a GPS
 
 The dataset that we are visualizing is provided by [GeoOptics](https://geooptics.com/), a company which specializes in radio occultations for weather forecasts. Each occultation event lasts less than a minute and produces a linear profile of between 350 and 400 observations from the top of the atmosphere to the bottom. The data are acquired from the altitude of 30km down to the ground level. The initial dataset contains around 600 occultation profiles that we then use to interpolate the measurements into a 3D surface. The geostatistical interpolation method is called Empirical Bayesian Kriging 3D. We then exported the 3D surface to a netCDF file that can then be viewed as voxel layers. [A voxel layer](https://pro.arcgis.com/en/pro-app/2.8/help/mapping/layer-properties/what-is-a-voxel-layer-.htm) is a representation of multidimensional spatial and temporal information in a 3D volumetric visualization. In the Esri world this is a type of layer and we can publish it to ArcGIS Online and visualize in a browser. Which is exactly what we did with this dataset, you can have a look at the voxel layer item [here](https://www.arcgis.com/home/item.html?id=aebb6c67172e4e1386887efe88fc687a).
 
-## How can we explore the dataset on the web?
+## Voxel layers on the web - an explanation
 
-Once we published it as a voxel layer, we can load it in a webscene to visualize it. By default the layer is rendered as a volume.
+Our voxel layer has multiple variables: x, y and z set the position in space and each voxel point has values for pressure and temperature over three days.
+
+![voxel layer variables](./public/assets/variables.png)
 
 ### Change variables
 
-We have several variables that we can visualize. You can discover them by accessing the array `voxelLayer.variables`.
+Within the ArcGIS API for JavaScript we can view the variables by accessing the array `voxelLayer.variables`.
 
 For example atmospheric temperature is a variable stored like this:
 
@@ -42,9 +44,13 @@ We can switch between the different variables by setting the variable id on the 
 voxelLayer.currentVariableId = 10;
 ```
 
+In ArcGIS API for JavaScript we set the time variable by setting the time extent on the sceneview.
+
 If we compare the pressure and the temperature, we can see how pressure changes almost linearly with altitude, whereas temperature fluctuates much more because it doesn't only depend on altitude, but also on solar radiation and humidity.
 
-### Visualize surfaces
+![comparison-temperature-pressure.png](./public/assets/comparison-temperature-pressure.png)
+
+### Render as surface or volume
 
 We can switch from visualizing the whole volume to visualizing only parts of it. In JavaScript we do so by applying slices or by changing the `renderMode` property of the voxel layer to `surfaces`: `voxelLayer.renderMode = 'surfaces'`.
 Like this we can display surfaces with the same variable value, also called isosurfaces:
