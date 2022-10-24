@@ -61,7 +61,8 @@ const VoxelLayer = ({
           {
             value: isosurfaceValue,
             enabled: true,
-            color: { ...color, a: 0.8 }
+            color: { ...color, a: 0.7 },
+            colorLocked: true
           }
         ];
       }
