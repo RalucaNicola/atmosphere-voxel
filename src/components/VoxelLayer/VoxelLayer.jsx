@@ -40,7 +40,7 @@ const VoxelLayer = ({
 
   useEffect(() => {
     if (loaded) {
-      const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
+      const style = layer.getVariableStyle(selectedVariable.id);
       if (style && style.transferFunction) {
         const range = style.transferFunction.stretchRange;
         const min = Math.min(Math.round(range[0]), Math.round(range[1]));
@@ -56,7 +56,7 @@ const VoxelLayer = ({
 
   useEffect(() => {
     if (loaded && layer && selectedVisualization === 'surfaces' && isosurfaceValue) {
-      const style = layer.variableStyles.filter((style) => style.variableId === selectedVariable.id).getItemAt(0);
+      const style = layer.getVariableStyle(selectedVariable.id);
       const color = layer.getColorForContinuousDataValue(selectedVariable.id, isosurfaceValue, false);
       if (style) {
         style.isosurfaces = [
@@ -105,10 +105,10 @@ const VoxelLayer = ({
     if (loaded) {
       const sections = [];
       for (let i = 0; i < 37; i++) {
-        sections.push({ enabled: false, label: `we${i}`, normal: [0, -1, 0], point: [0, i + 2, 0] });
+        sections.push({ enabled: false, label: `we${i}`, orientation: 180, tilt: 90, point: [0, i + 2, 0] });
       }
       for (let i = 0; i < 37; i++) {
-        sections.push({ enabled: false, label: `ns${i}`, normal: [1, 0, 0], point: [i + 2, 0, 0] });
+        sections.push({ enabled: false, label: `ns${i}`, orientation: 90, tilt: 90, point: [i + 2, 0, 0] });
       }
       setSections(sections);
     }
