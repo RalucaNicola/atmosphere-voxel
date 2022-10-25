@@ -17,6 +17,7 @@ export const App = () => {
   const [displaySections, setDisplaySections] = useState(false);
   const [displaySlices, setDisplaySlices] = useState(false);
   const [slices, setSlices] = useState([]);
+  const [dimensions, setDimensions] = useState([]);
   return (
     <>
       <Map selectedTime={selectedTime}>
@@ -36,6 +37,8 @@ export const App = () => {
           displaySections={displaySections}
           displaySlices={displaySlices}
           slices={slices}
+          dimensions={dimensions}
+          setDimensions={setDimensions}
         ></VoxelLayer>
         <Scale exaggeration={exaggeration}></Scale>
       </Map>
@@ -74,6 +77,7 @@ export const App = () => {
               displaySlices={displaySlices}
               setDisplaySlices={setDisplaySlices}
               setSlices={setSlices}
+              dimensions={dimensions}
             ></VisualizationPanel>
           </div>
         </div>

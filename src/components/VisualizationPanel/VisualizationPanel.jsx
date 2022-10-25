@@ -52,16 +52,17 @@ const VisualizationPanel = ({
   setDisplaySections,
   displaySlices,
   setDisplaySlices,
-  setSlices
+  setSlices,
+  dimensions
 }) => {
-  const [currentNSSection, setCurrentNSSection] = useState(0);
-  const [currentWESection, setCurrentWESection] = useState(0);
-  const [currentWESlice, setCurrentWESlice] = useState(getSlice('WE', 39));
-  const [currentNSSlice, setCurrentNSSlice] = useState(getSlice('NS', 1));
-  const [currentUpDownSlice, setCurrentUpDownSlice] = useState(getSlice('UD', 41));
+  const [currentNSSection, setCurrentNSSection] = useState(1);
+  const [currentWESection, setCurrentWESection] = useState(1);
+  const [currentWESlice, setCurrentWESlice] = useState(null);
+  const [currentNSSlice, setCurrentNSSlice] = useState(null);
+  const [currentUpDownSlice, setCurrentUpDownSlice] = useState(null);
 
   useEffect(() => {
-    if (displaySections) {
+    if (displaySections && currentNSSection && currentWESection) {
       let updatedSections = sections.map((section) => {
         if (section.label === `ns${currentNSSection}` || section.label === `we${currentWESection}`) {
           section.enabled = true;
@@ -75,7 +76,15 @@ const VisualizationPanel = ({
   }, [currentNSSection, currentWESection, displaySections]);
 
   useEffect(() => {
-    if (displaySlices) {
+    setCurrentWESlice(getSlice('WE', dimensions[0]));
+    setCurrentNSSlice(getSlice('NS', 1));
+    setCurrentUpDownSlice(getSlice('UD', dimensions[2]));
+    setCurrentNSSection(Math.floor(dimensions[0] / 2));
+    setCurrentWESection(Math.floor(dimensions[0] / 2));
+  }, [dimensions]);
+
+  useEffect(() => {
+    if (displaySlices && currentNSSlice && currentWESlice && currentUpDownSlice) {
       setSlices([currentNSSlice, currentWESlice, currentUpDownSlice]);
     }
   }, [currentNSSlice, currentWESlice, currentUpDownSlice, displaySlices]);
@@ -155,12 +164,12 @@ const VisualizationPanel = ({
             Display sections
             <CalciteSwitch scale='m' checked={displaySections ? true : undefined}></CalciteSwitch>
           </CalciteLabel>
-          {displaySections ? (
+          {displaySections && dimensions.length > 0 ? (
             <div className={styles.sections}>
               <img className={styles.surfaceGraphic} src='./assets/section-north-south.png'></img>
               <CalciteSlider
-                min='0'
-                max='36'
+                min={1}
+                max={dimensions[0]}
                 scale='m'
                 value={currentNSSection}
                 snap
@@ -173,8 +182,8 @@ const VisualizationPanel = ({
 
               <img className={styles.surfaceGraphic} src='./assets/section-west-east.png'></img>
               <CalciteSlider
-                min='0'
-                max='36'
+                min={1}
+                max={dimensions[1]}
                 scale='m'
                 value={currentWESection}
                 snap
@@ -204,12 +213,12 @@ const VisualizationPanel = ({
           Slice layer
           <CalciteSwitch scale='m' checked={displaySlices ? true : undefined}></CalciteSwitch>
         </CalciteLabel>
-        {displaySlices ? (
+        {displaySlices && dimensions.length > 0 ? (
           <div className={styles.slices}>
             <img className={styles.sliceGraphic} src='./assets/slice-west-east.png'></img>
             <CalciteSlider
               min={2}
-              max={39}
+              max={dimensions[1]}
               scale='m'
               value={currentWESlice.point[0]}
               snap
@@ -222,7 +231,7 @@ const VisualizationPanel = ({
             <img className={styles.sliceGraphic} src='./assets/slice-north-south.png'></img>
             <CalciteSlider
               min={1}
-              max={38}
+              max={dimensions[0] - 2}
               scale='m'
               value={currentNSSlice.point[1]}
               snap
@@ -235,7 +244,7 @@ const VisualizationPanel = ({
             <img className={styles.sliceGraphic} src='./assets/slice-up-down.png'></img>
             <CalciteSlider
               min={1}
-              max={41}
+              max={dimensions[2]}
               scale='m'
               value={currentUpDownSlice.point[2]}
               snap

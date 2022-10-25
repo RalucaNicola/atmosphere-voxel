@@ -15,7 +15,9 @@ const VoxelLayer = ({
   setIsosurfaceValue,
   displaySections,
   displaySlices,
-  slices
+  slices,
+  dimensions,
+  setDimensions
 }) => {
   const [layer, setLayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
@@ -102,15 +104,22 @@ const VoxelLayer = ({
   }, [loaded, sections]);
 
   useEffect(() => {
-    if (loaded) {
+    if (loaded && dimensions.length > 0) {
       const sections = [];
-      for (let i = 0; i < 37; i++) {
-        sections.push({ enabled: false, label: `we${i}`, orientation: 180, tilt: 90, point: [0, i + 2, 0] });
+      for (let i = 1; i < dimensions[0]; i++) {
+        sections.push({ enabled: false, label: `we${i}`, orientation: 180, tilt: 90, point: [0, i, 0] });
       }
-      for (let i = 0; i < 37; i++) {
-        sections.push({ enabled: false, label: `ns${i}`, orientation: 90, tilt: 90, point: [i + 2, 0, 0] });
+      for (let i = 1; i < dimensions[1]; i++) {
+        sections.push({ enabled: false, label: `ns${i}`, orientation: 90, tilt: 90, point: [i, 0, 0] });
       }
       setSections(sections);
+    }
+  }, [loaded, dimensions]);
+
+  useEffect(() => {
+    if (loaded) {
+      const volume = voxelLayer.getVolume();
+      setDimensions(volume.sizeInVoxels);
     }
   }, [loaded]);
 
@@ -122,7 +131,6 @@ const VoxelLayer = ({
       } else {
         setLoaded(true);
       }
-
       window.voxelLayer = voxelLayer;
       setLayer(voxelLayer);
     }
