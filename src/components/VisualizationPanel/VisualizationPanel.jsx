@@ -27,7 +27,6 @@ const getSlice = (orientation, value) => {
       return new VoxelSlice({ orientation: 270, tilt: 90, point: [value, 0, 0] });
     case 'UD':
       return new VoxelSlice({
-        orientation: 0,
         tilt: 0,
         point: [0, 0, value]
       });
