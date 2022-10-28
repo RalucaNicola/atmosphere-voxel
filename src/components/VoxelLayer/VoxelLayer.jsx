@@ -120,6 +120,8 @@ const VoxelLayer = ({
     if (loaded) {
       const volume = voxelLayer.getVolume();
       setDimensions(volume.sizeInVoxels);
+      // set vertical offset to avoid z-fighting
+      voxelLayer.getVolumeStyle().verticalOffset = 20000;
     }
   }, [loaded]);
 

@@ -262,7 +262,7 @@ const VisualizationPanel = ({
       <CalciteLabel className={styles.label}>Vertical exaggeration</CalciteLabel>
       <CalciteSlider
         labelHandles
-        min='1'
+        min='20'
         max='200'
         scale='m'
         value={exaggeration}
